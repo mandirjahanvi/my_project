@@ -24,6 +24,7 @@
                             <field name="email"/>
                             <field name="active"/>
                         </group>
+
                     </group>
                     <notebook>
                         <page string="Address Details">
