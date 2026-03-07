@@ -1,0 +1,115 @@
+<odoo>
+    <!--Bank Details form view-->
+    <record id="view_bank_acc_form" model="ir.ui.view">
+        <field name="name">Bank Acc Form View</field>
+        <field name="model">bank.account</field>
+        <field name="arch" type="xml">
+            <form string ="Bank Acc Form">
+                <sheet>
+                    <group col="1">
+                        <group>
+                            <field name="acc_no" required="1"/>
+                            <field name="balance" />
+                            <field name="customer_id" required="1"/>
+                            <field name="bank_name"/>
+                            <field name="account_type" />
+                            <field name="ifsc_code"/>
+                        </group>
+                    </group>
+                    <notebook name="not_1">
+                        <page name="Tags">
+                            <field name="tag_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+ <!--bank_list view-->
+    <record id="view_bank_acc_list" model="ir.ui.view">
+        <field name="name">Bank Acc list View</field>
+		<field name="model">bank.account</field>
+		<field name="arch" type="xml">
+			<list string="Bank Acc List">
+				<field name="acc_no"/>
+				<field name="balance"/>
+				<field name="customer_id"/>
+                <field name="bank_name"/>
+				<field name="account_type"/>
+                <field name="ifsc_code"/>
+			</list>
+		</field>
+    </record>
+    <!--Customer Details-->
+    <record id="view_customer_master_form" model="ir.ui.view">
+        <field name="name">Customer master form</field>
+        <field name="model">customer.master</field>
+        <field name="arch" type="xml">
+			<form string="Customers">
+				<sheet>
+                    <group>
+						<group>
+                            <field name="name" required="1" placeholder="e.g. ABC"/>
+							<field name="email" placeholder="e.g. ABC@gmail.com"/>
+							<field name="phone" placeholder="e.g.1234567890"/>
+                            <field name="state_name"/>
+                            <field name="address" />
+
+						</group>
+					</group>
+					<notebook name="notebook_1">
+                        <page name="bank" string="Accounts Details">
+                            <field name="account_ids"/>
+                        </page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+    </record>
+    <record id="view_customer_master_list" model="ir.ui.view">
+        <field name="name">Customer List View</field>
+        <field name="model">customer.master</field>
+        <field name="arch" type="xml">
+			<list string="Customers">
+				<field name="name" placeholder="e.g. ABC"/>
+                <field name="email" placeholder="e.g. ABC@gmail.com"/>
+                <field name="phone" placeholder="e.g.1234567890"/>
+                <field name="state_name"/>
+			</list>
+        </field>
+    </record>
+
+    <record id="view_account_tags_list" model="ir.ui.view">
+        <field name="name">Account Tags list</field>
+        <field name="model">bank.account.tags</field>
+        <field name="arch" type="xml">
+            <list string="Tags" editable="bottom">
+                <field name="name"/>
+                <field name="acc_name" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+ <!--actions-->
+    <record id="action_bank_acc" model="ir.actions.act_window">
+        <field name="name">Bank Account</field>
+        <field name="res_model">bank.account</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_customer_master" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">customer.master</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_bank_acc_tag" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">bank.account.tags</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_bank_acc_main" name="Bank Management"/>
+    <menuitem id="menu_bank_acc" name="Bank Accounts" action="action_bank_acc" sequence="10" parent="menu_bank_acc_main"/>
+    <menuitem id="menu_customers" name="Customers" action="action_customer_master" sequence="20" parent="menu_bank_acc_main"/>
+    <menuitem id="menu_acc_tags" name="Tags" action="action_bank_acc_tag" sequence="30" parent="menu_bank_acc_main"/>
+</odoo>

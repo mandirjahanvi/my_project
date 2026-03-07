@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acc_bank_acc_user,acc.bank.user,Bank_Account.model_bank_account,group_bank_acc_user,1,0,0,0
+acc_cust_master_bank_user,acc.bank.customer.master,Bank_Account.model_customer_master,group_bank_acc_user,1,0,0,0
+acc_bank_acc_manger,acc.bank.manager.bank,Bank_Account.model_bank_account,group_bank_acc_manger,1,1,1,1
+acc_bank_acc_manager_cust_master,acc.bank.acc.manager.tag,Bank_Account.model_customer_master,group_bank_acc_manger,1,1,1,1
+acc_bank_acc_hr_tag,acc.bank.acc.hr.tag,Bank_Account.model_bank_account_tags,group_bank_acc_hr,1,1,1,1

@@ -1,0 +1,43 @@
+<odoo>
+    <record id="task_form_view" model="ir.ui.view">
+        <field name="name">Task form view</field>
+        <field name="model">my.tasks</field>
+        <field name="arch" type="xml">
+            <form string="Task">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="priority" widget="radio"/>
+                        <field name="estimated_hours"/>
+                        <field name="status" widget="radio"/>
+                        <field name="project_member_ids" invisible="1"/>
+                        <field name="assignee_to" domain="[('id','in',project_member_ids)]"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="task_list_view" model="ir.ui.view">
+        <field name="name">Task list view</field>
+        <field name="model">my.tasks</field>
+        <field name="arch" type="xml">
+            <list string="Task">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="priority"/>
+                <field name="estimated_hours"/>
+                <field name="status"/>
+                <field name="assignee_to"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_task_tag" model="ir.actions.act_window">
+        <field name="name">Task</field>
+        <field name="res_model">my.tasks</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_task" name="Task" action="action_task_tag"
+              parent="Project_and_Task_Management" sequence="20"/>
+</odoo>

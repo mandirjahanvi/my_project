@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Hospital_Doctor_Receptionist,Hospital.Doctor.Receptionist ,Hospital_Appointment_Managemen.model_hospital_doctor,group_hospital_Receptionist,1,0,0,0
+Hospital_Appointment_Receptionist,Hospital.Appointment.Receptionist ,Hospital_Appointment_Managemen.model_hospital_appointment,group_hospital_Receptionist,0,1,1,1
+Hospital_Patient_Receptionist,Hospital.Patient.Receptionist,Hospital_Appointment_Managemen.model_hospital_patient,group_hospital_Receptionist,1,0,1,0
+Hospital_Appointment_Admin,Hospital.Appointment.Admin,Hospital_Appointment_Managemen.model_hospital_appointment,group_hospital_Admin,1,1,1,1
+Hospital_Doctor_Admin,Hospital.Doctor.Admin,Hospital_Appointment_Managemen.model_hospital_doctor,group_hospital_Admin,1,1,1,1

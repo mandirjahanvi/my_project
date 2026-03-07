@@ -1,0 +1,20 @@
+<odoo>
+<!--  low level -->
+
+    <record id="group_bank_acc_user" model="res.groups">
+       <field name="name">Bank Account low level user accesses</field>
+    </record>
+
+<!-- high level -->
+
+    <record id="group_bank_acc_manger" model="res.groups">
+       <field name="name">Bank Account High Level Manager accesses </field>
+    </record>
+
+<!-- group acc for hr -->
+
+    <record id="group_bank_acc_hr" model="res.groups">
+       <field name="name">Bank hr level accesses</field>
+       <field name="implied_ids" eval="[(4,ref('group_bank_acc_manger'))]"/>
+    </record>
+</odoo>

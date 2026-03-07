@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+Training_course_staff,Training.course.staff,Training_institute.model_training_course,group_Training_Staff,1,1,1,1
+Training_batch_staff,Training.batch.staff,Training_institute.model_training_batch,group_Training_Staff,1,1,1,0
+Training_student_staff,Training.student.staff,Training_institute.model_training_student,group_Training_Staff,1,0,0,0
+Training_batch_manager,Training.batch.manager,Training_institute.model_training_batch,group_Training_manager,1,1,1,1
+Training_student_manager,Training.student.manager,Training_institute.model_training_student,group_Training_manager,1,1,1,1

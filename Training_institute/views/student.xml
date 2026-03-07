@@ -1,0 +1,46 @@
+<odoo>
+    <record id="Student_form_view" model="ir.ui.view">
+        <field name="name">Student Form View</field>
+        <field name="model">training.student</field>
+        <field name="arch" type="xml">
+            <form string="Student Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="age"/>
+                        <field name="gender"/>
+                        <field name="course_id" widget="many2many_tags"/>
+                        <field name="batch_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="student_list_view" model="ir.ui.view">
+        <field name="name">Student list View</field>
+        <field name="model">training.student</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="batch_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_student_tag" model="ir.actions.act_window">
+        <field name="name">Student</field>
+        <field name="res_model">training.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_student" name="Students"
+              action="action_student_tag"
+              parent="training_management_main"/>
+</odoo>

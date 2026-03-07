@@ -1,0 +1,55 @@
+<odoo>
+    <!-- Course form-->
+    <record id="Course_form_view" model="ir.ui.view">
+        <field name="name">Course form view</field>
+        <field name="model">training.course</field>
+        <field name="arch" type="xml">
+            <form string="Course Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fees"/>
+                        <field name="duration_days"/>
+                        <field name="is_active"/>
+                        <field name="level"/>
+                    </group>
+                    <notebook name="not_1">
+                        <page string="Batches">
+                            <field name="batch_ids"/>
+                        </page>
+                        <page string="Students">
+                            <field name="student_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Course List view-->
+    <record id="Course_list_view" model="ir.ui.view">
+        <field name="name">Course list View</field>
+        <field name="model">training.course</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="fees"/>
+                <field name="duration_days"/>
+                <field name="is_active"/>
+                <field name="level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_Course_tag" model="ir.actions.act_window">
+        <field name="name">Course</field>
+        <field name="res_model">training.course</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="training_management_main" name="Training Management"/>
+    <menuitem id="menu_course" name="Courses"
+              action="action_Course_tag" sequence="10"
+              parent="training_management_main"/>
+</odoo>

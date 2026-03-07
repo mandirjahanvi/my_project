@@ -1,0 +1,42 @@
+<odoo>
+    <record id="project_form_view" model="ir.ui.view">
+        <field name="name">project form view</field>
+        <field name="model">my.project</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="customer_id"/>
+                        <field name="budget"/>
+                        <field name="is_active"/>
+                        <field name="task_ids"/>
+                        <field name="member_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="project_list_view" model="ir.ui.view">
+        <field name="name">project list view</field>
+        <field name="model">my.project</field>
+        <field name="arch" type="xml">
+            <list string="Project">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="budget"/>
+                <field name="is_active"/>
+                <field name="member_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_project_tag" model="ir.actions.act_window">
+        <field name="name">Project</field>
+        <field name="res_model">my.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="Project_and_Task_Management" name="Project Management"/>
+    <menuitem id="menu_project" name="Project" action="action_project_tag"
+              parent="Project_and_Task_Management" sequence="10"/>
+</odoo>

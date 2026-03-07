@@ -1,0 +1,11 @@
+<odoo>
+
+    <record id="group_hospital_Receptionist" model="res.groups">
+       <field name="name">Hospital Management Receptionist</field>
+    </record>
+    <record id="group_hospital_Admin" model="res.groups">
+        <field name="name">Hospital Management Admin</field>
+        <field name="implied_ids" eval="[(4,ref('group_hospital_Admin'))]"/>
+    </record>
+
+</odoo>
