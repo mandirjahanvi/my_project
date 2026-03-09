@@ -40,5 +40,41 @@
               parent="menu_academics_root"
               action="action_education_subject"
               sequence="4"/>
+<!--Examination-->
+   <menuitem id="menu_examination_root"
+          name="Examination"
+          parent="menu_student_register_main"
+          sequence="10"/>
+
+    <menuitem id="menu_schedule"
+          name="Exam Schedule"
+          parent="menu_examination_root"
+          action="action_schedule"
+          sequence="1"/>
+
+    <menuitem id="menu_exam_marks"
+              name="Exam Marks"
+              parent="menu_examination_root"
+              action="action_Marks"
+              sequence="2"/>
+
+    <menuitem id="menu_grade"
+              name="Exam Grade"
+              parent="menu_examination_root"
+              action="action_grade"
+              sequence="3"/>
+
+     <menuitem id="menu_result"
+              name="Results"
+              parent="menu_examination_root"
+              action="action_result"
+              sequence="4"/>
+
+     <menuitem id="menu_report"
+              name="Reports"
+              parent="menu_examination_root"
+              action="action_report"
+              sequence="5"/>
+
 </odoo>
 

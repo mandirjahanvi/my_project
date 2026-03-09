@@ -97,10 +97,10 @@
      </record>
 <!--class action-->
         <record id="action_classes" model="ir.actions.act_window">
-        <field name="name">Classes</field>
-        <field name="res_model">education.class</field>
-        <field name="view_mode">list,form</field>
-    </record>
+            <field name="name">Classes</field>
+            <field name="res_model">education.class</field>
+            <field name="view_mode">list,form</field>
+        </record>
 <!--year action-->
     <record id="action_academic_year" model="ir.actions.act_window">
         <field name="name">Academic Year</field>
