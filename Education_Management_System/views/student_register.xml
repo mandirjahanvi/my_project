@@ -28,15 +28,12 @@
                     </group>
                     <notebook>
                         <page string="Address Details">
-                            <group>
-                                <field name="address" placeholder="Street"/>
-                            <group>
+                            <group><field name="address"/></group>
                             <field name="city" placeholder="City" nolabel="1"/>
                             <field name="zipcode" placeholder="Zipcode" nolabel="1"/>
                             <field name="state_id" placeholder="State" nolabel="1"/>
                             <field name="country_id" placeholder="Country" nolabel="1"/>
-                        </group>
-                        </group>
+
                         </page>
                        <page string="Documents">
                             <field name="document_ids">

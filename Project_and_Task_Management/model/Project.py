@@ -3,8 +3,7 @@ from odoo import fields,models
 class Project(models.Model):
     _name='my.project'
     _rec_name = 'name'
-#sadsadas
-    #new one
+
     name=fields.Char('Name')
     customer_id=fields.Integer('Customer ID')
     budget=fields.Float('Budget')

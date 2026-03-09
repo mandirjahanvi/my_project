@@ -1,0 +1,197 @@
+<oddo>
+<!--Exam Schedule-->
+    <record id="Exam_schedule_form" model="ir.ui.view">
+        <field name="name">Exam schedule form</field>
+        <field name="model">exam.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Schedule">
+                  <sheet>
+                      <group>
+                          <group>
+                            <field name="code"/>
+                            <field name="class_id" widget="Many2one_tag"/>
+                            <field name="subject_id" widget="Many2one_tag"/>
+                            <field name="teacher_id" widget="Many2one_tag"/>
+                        </group>
+                        <group>
+                            <field name="exam_date"/>
+                            <field name="start_time"/>
+                            <field name="end_time"/>
+                            <field name="room_number"/>
+                        </group>
+                      </group>
+                  </sheet>
+            </form>
+        </field>
+    </record>
+<!--Exam Marks-->
+    <record id="Exam_marks_form" model="ir.ui.view">
+        <field name="name">Exam marks form</field>
+        <field name="model">exam.marks</field>
+        <field name="arch" type="xml">
+            <form string="Marks">
+                  <sheet>
+                      <group>
+                          <group>
+                            <field name="student_id" widget="Many2one_tag"/>
+                            <field name="exam_id" widget="Many2one_tag"/>
+                            <field name="subject_id" widget="Many2one_tag"/>
+                        </group>
+                        <group>
+                            <field name="marks_obtained"/>
+                            <field name="total_marks"/>
+                            <field name="percentage"/>
+                            <field name="grade"/>
+                        </group>
+                      </group>
+                  </sheet>
+            </form>
+        </field>
+    </record>
+<!--Exam Grade-->
+    <record id="Exam_grade_form" model="ir.ui.view">
+        <field name="name">Exam Grade Form</field>
+        <field name="model">exam.grade</field>
+        <field name="arch" type="xml">
+            <form string="Grade">
+                  <sheet>
+                      <group>
+                          <group>
+                            <field name="name"/>
+                            <field name="min_marks"/>
+                            <field name="max_marks"/>
+                            <field name="grade_point"/>
+                            <field name="description"/>
+                        </group>
+                      </group>
+                  </sheet>
+            </form>
+        </field>
+    </record>
+<!--Result-->
+    <record id="Exam_marks_form" model="ir.ui.view">
+        <field name="name">Exam marks form</field>
+        <field name="model">exam.marks</field>
+        <field name="arch" type="xml">
+            <form string="Marks">
+                  <sheet>
+                      <group>
+                          <group>
+                            <field name="student_id" widget="Many2one_tag"/>
+                            <field name="exam_id" widget="Many2one_tag"/>
+                            <field name="result_status"/>
+                        </group>
+                        <group>
+                            <field name="total_marks"/>
+                            <field name="percentage"/>
+                            <field name="grade"/>
+                            <field name="publish_date"/>
+                        </group>
+                      </group>
+                  </sheet>
+            </form>
+        </field>
+    </record>
+<!--Report-->
+    <record id="Exam_schedule_form" model="ir.ui.view">
+        <field name="name">Exam schedule form</field>
+        <field name="model">exam.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Schedule">
+                  <sheet>
+                      <group>
+                          <group>
+                            <field name="student_id" widget="Many2one_tag"/>
+                            <field name="exam_id" widget="Many2one_tag"/>
+                            <field name="class_id" widget="Many2one_tag"/>
+                            <field name="subject_id" widget="Many2one_tag"/>
+                        </group>
+                        <group>
+                            <field name="total_marks"/>
+                            <field name="percentage"/>
+                            <field name="grade"/>
+                            <field name="rank"/>
+                            <field name="pdf_file"/>
+                        </group>
+                      </group>
+                  </sheet>
+            </form>
+        </field>
+    </record>
+<!--exam schedule list-->
+    <record id="Exam_schedule_list" model="ir.ui.view">
+        <field name="name">Exam Schedule List</field>
+        <field name="model">exam.schedule</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="class_id"/>
+                <field name="subject_id"/>
+                <field name="exam_date"/>
+                <field name="room_number"/>
+                <field name="teacher_id"/>
+            </list>
+        </field>
+    </record>
+<!--Marks list-->
+    <record id="Exam_marks_list" model="ir.ui.view">
+        <field name="name">Exam Marks List</field>
+        <field name="model">exam.marks</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="exam_id"/>
+                <field name="subject_id"/>
+                <field name="marks_obtained"/>
+                <field name="total_marks"/>
+                <field name="percentage"/>
+                <field name="grade"/>
+            </list>
+        </field>
+    </record>
+<!--Grade list-->
+    <record id="Exam_grade_list" model="ir.ui.view">
+        <field name="name">Exam Grade List</field>
+        <field name="model">exam.grade</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="min_marks"/>
+                <field name="max_marks"/>
+                <field name="grade_point"/>
+            </list>
+        </field>
+    </record>
+<!--Result list-->
+    <record id="Exam_result_list" model="ir.ui.view">
+        <field name="name">Exam Result List</field>
+        <field name="model">exam.result</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="exam_id"/>
+                <field name="total_marks"/>
+                <field name="percentage"/>
+                <field name="grade"/>
+                <field name="result_status"/>
+            </list>
+        </field>
+    </record>
+<!--Report list-->
+    <record id="Exam_result_list" model="ir.ui.view">
+        <field name="name">Exam Result List</field>
+        <field name="model">exam.report</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="exam_id"/>
+                <field name="class_id"/>
+                <field name="total_marks"/>
+                <field name="percentage"/>
+                <field name="grade"/>
+                <field name="rank"/>
+                <field name="pdf_file"/>
+            </list>
+        </field>
+    </record>
+</oddo>
