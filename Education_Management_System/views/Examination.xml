@@ -1,4 +1,4 @@
-<oddo>
+<odoo>
 <!--Exam Schedule-->
     <record id="Exam_schedule_form" model="ir.ui.view">
         <field name="name">Exam schedule form</field>
@@ -8,15 +8,15 @@
                   <sheet>
                       <group>
                           <group>
-                            <field name="code"/>
-                            <field name="class_id" widget="Many2one_tag"/>
-                            <field name="subject_id" widget="Many2one_tag"/>
-                            <field name="teacher_id" widget="Many2one_tag"/>
+                              <field name="name"/>
+                            <field name="class_id" widget="many2one_tags"/>
+                            <field name="subject_id" widget="many2one_tags"/>
+                            <field name="teacher_id" widget="many2one_tags"/>
                         </group>
                         <group>
                             <field name="exam_date"/>
-                            <field name="start_time"/>
-                            <field name="end_time"/>
+                            <field name="start_time" widget="time"/>
+                            <field name="end_time" widget="time"/>
                             <field name="room_number"/>
                         </group>
                       </group>
@@ -33,9 +33,9 @@
                   <sheet>
                       <group>
                           <group>
-                            <field name="student_id" widget="Many2one_tag"/>
-                            <field name="exam_id" widget="Many2one_tag"/>
-                            <field name="subject_id" widget="Many2one_tag"/>
+                            <field name="student_id" widget="many2one_tags"/>
+                            <field name="exam_id" widget="many2one_tags"/>
+                            <field name="subject_id" widget="many2one_tags"/>
                         </group>
                         <group>
                             <field name="marks_obtained"/>
@@ -69,16 +69,16 @@
         </field>
     </record>
 <!--Result-->
-    <record id="Exam_marks_form" model="ir.ui.view">
-        <field name="name">Exam marks form</field>
-        <field name="model">exam.marks</field>
+    <record id="Exam_marks_result" model="ir.ui.view">
+        <field name="name">Exam result form</field>
+        <field name="model">exam.result</field>
         <field name="arch" type="xml">
-            <form string="Marks">
+            <form string="Result">
                   <sheet>
                       <group>
                           <group>
-                            <field name="student_id" widget="Many2one_tag"/>
-                            <field name="exam_id" widget="Many2one_tag"/>
+                            <field name="student_id" widget="many2one_tags"/>
+                            <field name="exam_id" widget="many2one_tags"/>
                             <field name="result_status"/>
                         </group>
                         <group>
@@ -93,18 +93,18 @@
         </field>
     </record>
 <!--Report-->
-    <record id="Exam_schedule_form" model="ir.ui.view">
-        <field name="name">Exam schedule form</field>
-        <field name="model">exam.schedule</field>
+    <record id="Exam_report_form" model="ir.ui.view">
+        <field name="name">Exam Report form</field>
+        <field name="model">exam.report</field>
         <field name="arch" type="xml">
-            <form string="Schedule">
+            <form string="Report">
                   <sheet>
                       <group>
                           <group>
-                            <field name="student_id" widget="Many2one_tag"/>
-                            <field name="exam_id" widget="Many2one_tag"/>
-                            <field name="class_id" widget="Many2one_tag"/>
-                            <field name="subject_id" widget="Many2one_tag"/>
+                            <field name="student_id" widget="many2one_tags"/>
+                            <field name="exam_id" widget="many2one_tags"/>
+                            <field name="class_id" widget="many2one_tags"/>
+                            <field name="subject_id" widget="many2one_tags"/>
                         </group>
                         <group>
                             <field name="total_marks"/>
@@ -159,6 +159,7 @@
                 <field name="min_marks"/>
                 <field name="max_marks"/>
                 <field name="grade_point"/>
+                <field name="description"/>
             </list>
         </field>
     </record>
@@ -170,7 +171,6 @@
             <list>
                 <field name="student_id"/>
                 <field name="exam_id"/>
-                <field name="total_marks"/>
                 <field name="percentage"/>
                 <field name="grade"/>
                 <field name="result_status"/>
@@ -178,8 +178,8 @@
         </field>
     </record>
 <!--Report list-->
-    <record id="Exam_result_list" model="ir.ui.view">
-        <field name="name">Exam Result List</field>
+    <record id="Exam_report_list" model="ir.ui.view">
+        <field name="name">Exam Report List</field>
         <field name="model">exam.report</field>
         <field name="arch" type="xml">
             <list>
@@ -190,7 +190,6 @@
                 <field name="percentage"/>
                 <field name="grade"/>
                 <field name="rank"/>
-                <field name="pdf_file"/>
             </list>
         </field>
     </record>
@@ -221,4 +220,4 @@
         <field name="res_model">exam.report</field>
         <field name="view_mode">list,form</field>
     </record>
-</oddo>
+</odoo>

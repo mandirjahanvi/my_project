@@ -2,7 +2,7 @@ from odoo import models, fields
 
 class bank_account(models.Model):
     _name = 'bank.account'
-    _rec_name = 'customer_id'
+    _rec_name = 'acc_no'
 
     acc_no = fields.Char('Account Number')
     balance = fields.Float('Balance')

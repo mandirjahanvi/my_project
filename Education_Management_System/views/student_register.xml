@@ -13,13 +13,12 @@
                     </div>
                     <group>
                         <group>
-                            <field name="first_name"/>
+                            <field name="name"/>
                             <field name="admission_no"/>
                             <field name="dob"/>
                             <field name="gender" widget="radio"/>
                         </group>
                         <group>
-                            <field name="last_name"/>
                             <field name="phone"/>
                             <field name="email"/>
                             <field name="active"/>
@@ -63,8 +62,7 @@
         <field name="model">student.register</field>
         <field name="arch" type="xml">
             <list string="Students">
-                <field name="first_name"/>
-                <field name="last_name"/>
+                <field name="name"/>
                 <field name="admission_no"/>
                 <field name="phone"/>
                 <field name="email"/>

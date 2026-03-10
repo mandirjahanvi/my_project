@@ -2,10 +2,9 @@ from odoo import models, fields, api
 
 class student_register(models.Model):
     _name = 'student.register'
-    _rec_name = 'last_name'
+    _rec_name = 'name'
 
-    first_name = fields.Char("First Name")
-    last_name = fields.Char("Last Name")
+    name=fields.Char("Name")
     admission_no=fields.Char("Admission Number")
     phone = fields.Char('Phone')
     email = fields.Char('Email')

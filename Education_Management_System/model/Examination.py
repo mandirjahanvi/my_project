@@ -1,3 +1,5 @@
+from docutils.parsers.rst.directives import percentage
+
 from odoo import fields, models, api
 
 class Exam(models.Model):
@@ -22,15 +24,30 @@ class Marks(models.Model):
     subject_id=fields.Many2one('education.subject',string="Subject")
     marks_obtained=fields.Float("Marks Obtained")
     total_marks=fields.Float("Total Marks")
-    percentage=fields.Float("Percentage",compute="_compute_percentage")
-    grade=fields.Float("Grade")
+    percentage=fields.Float("Percentage",compute="_compute_percentage",store=True)
+    grade=fields.Char("Grade",compute="_compute_percentage",store=True)
 
-    @api.depends('marks_obtained','total_marks')
+    @api.depends('marks_obtained', 'total_marks')
     def _compute_percentage(self):
         for i in self:
-            if i.total_marks:
-                i.percentage =(i.mark_obtained / i.total_marks) * 100
 
+            if i.total_marks:
+                percentage = (i.marks_obtained / i.total_marks) * 100
+            else:
+                percentage = 0.0
+
+            i.percentage = percentage
+
+            if percentage >= 90:
+                i.grade = 'A'
+            elif percentage >= 80:
+                i.grade = 'B'
+            elif percentage >= 70:
+                i.grade = 'C'
+            elif percentage >= 60:
+                i.grade = 'D'
+            else:
+                i.grade = 'F'
 
 class Grade(models.Model):
     _name='exam.grade'
@@ -43,17 +60,43 @@ class Grade(models.Model):
 
 class Result(models.Model):
     _name='exam.result'
+    _rec_name = 'student_id'
 
     student_id=fields.Many2one('student.register',string='Student')
     exam_id=fields.Many2one('exam.schedule',string='Exam')
-    total_marks=fields.Float("Total Marks")
-    percentage=fields.Float("Percentage")
-    grade=fields.Char("Grade")
+    total_marks=fields.Float("Total Marks",compute="compute_result")
+    percentage=fields.Float("Percentage",compute="compute_result")
+    grade=fields.Char("Grade",compute="compute_result")
     result_status=fields.Selection([('pass','Pass'),('fail','Fail')],string="Result")
     publish_date=fields.Date("Publish Date")
 
+    @api.depends('student_id')
+    def compute_result(self):
+        for i in self:
+            marks = self.env['exam.marks'].search([('student_id', '=', i.student_id.id),('exam_id', '=', i.exam_id.id)])
+            total = sum(marks.mapped('marks_obtained'))
+            total_max = sum(marks.mapped('total_marks'))
+
+            if total_max:
+                percentage = (total / total_max) * 100
+            else:
+                percentage = 0
+            i.total_marks = total
+            i.percentage = percentage
+            if percentage >= 90:
+                i.grade = 'A'
+            elif percentage >= 80:
+                i.grade = 'B'
+            elif percentage >= 70:
+                i.grade = 'C'
+            elif percentage >= 60:
+                i.grade = 'D'
+            else:
+                i.grade = 'F'
+
 class Report(models.Model):
     _name='exam.report'
+    _rec_name = 'student_id'
 
     student_id = fields.Many2one('student.register', string='Student')
     exam_id = fields.Many2one('exam.schedule', string='Exam')

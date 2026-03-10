@@ -1,4 +1,4 @@
-from odoo import fields,models
+from odoo import fields,models,api
 
 class EducationClass(models.Model):
     _name = "education.class"
@@ -36,6 +36,13 @@ class Subject(models.Model):
     code=fields.Char("Code")
     class_id=fields.Many2one('education.class',string="Class")
     teacher_id=fields.Many2one('edu.teacher',string="Teacher")
+
+    @api.onchange('class_id')
+    def _onchange_class_id(self):
+        if self.class_id and self.class_id.class_Teacher:
+            self.teacher_id = self.class_id.class_Teacher
+        else:
+            self.teacher_id = False
 
 
 
