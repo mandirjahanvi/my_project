@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models,fields
 
 class bank_account(models.Model):
     _name = 'bank.account'

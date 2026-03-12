@@ -1,6 +1,4 @@
-from docutils.parsers.rst.directives import percentage
-
-from odoo import fields, models, api
+from odoo import models,fields,api
 
 class Exam(models.Model):
     _name = 'exam.schedule'
@@ -25,7 +23,7 @@ class Marks(models.Model):
     marks_obtained=fields.Float("Marks Obtained")
     total_marks=fields.Float("Total Marks")
     percentage=fields.Float("Percentage",compute="_compute_percentage",store=True)
-    grade=fields.Char("Grade",compute="_compute_percentage",store=True)
+    grade_id = fields.Many2one('exam.grade', string="Grade", compute="_compute_percentage", store=True)
 
     @api.depends('marks_obtained', 'total_marks')
     def _compute_percentage(self):
@@ -37,17 +35,9 @@ class Marks(models.Model):
                 percentage = 0.0
 
             i.percentage = percentage
+            grade=self.env['exam.grade'].search([ ('min_marks', '<=', percentage),('max_marks', '>=', percentage)],limit=1)
+            i.grade_id =grade.id
 
-            if percentage >= 90:
-                i.grade = 'A'
-            elif percentage >= 80:
-                i.grade = 'B'
-            elif percentage >= 70:
-                i.grade = 'C'
-            elif percentage >= 60:
-                i.grade = 'D'
-            else:
-                i.grade = 'F'
 
 class Grade(models.Model):
     _name='exam.grade'

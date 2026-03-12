@@ -1,6 +1,6 @@
 <odoo>
 <!--Exam Schedule-->
-    <record id="Exam_schedule_form" model="ir.ui.view">
+        <record id="Exam_schedule_form" model="ir.ui.view">
         <field name="name">Exam schedule form</field>
         <field name="model">exam.schedule</field>
         <field name="arch" type="xml">
@@ -41,7 +41,7 @@
                             <field name="marks_obtained"/>
                             <field name="total_marks"/>
                             <field name="percentage"/>
-                            <field name="grade"/>
+                            <field name="grade_id"/>
                         </group>
                       </group>
                   </sheet>
@@ -145,7 +145,7 @@
                 <field name="marks_obtained"/>
                 <field name="total_marks"/>
                 <field name="percentage"/>
-                <field name="grade"/>
+                <field name="grade_id"/>
             </list>
         </field>
     </record>

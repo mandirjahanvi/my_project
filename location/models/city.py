@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import models, fields,api
 
 class city(models.Model):
     _name = 'bank.city'
