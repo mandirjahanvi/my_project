@@ -24,30 +24,6 @@
             </form>
         </field>
     </record>
-<!--Exam Marks-->
-    <record id="Exam_marks_form" model="ir.ui.view">
-        <field name="name">Exam marks form</field>
-        <field name="model">exam.marks</field>
-        <field name="arch" type="xml">
-            <form string="Marks">
-                  <sheet>
-                      <group>
-                          <group>
-                            <field name="student_id" widget="many2one_tags"/>
-                            <field name="exam_id" widget="many2one_tags"/>
-                            <field name="subject_id" widget="many2one_tags"/>
-                        </group>
-                        <group>
-                            <field name="marks_obtained"/>
-                            <field name="total_marks"/>
-                            <field name="percentage"/>
-                            <field name="grade_id"/>
-                        </group>
-                      </group>
-                  </sheet>
-            </form>
-        </field>
-    </record>
 <!--Exam Grade-->
     <record id="Exam_grade_form" model="ir.ui.view">
         <field name="name">Exam Grade Form</field>
@@ -80,12 +56,13 @@
                             <field name="student_id" widget="many2one_tags"/>
                             <field name="exam_id" widget="many2one_tags"/>
                             <field name="result_status"/>
+                             <field name="result_line"/>
                         </group>
                         <group>
+                            <field name="total_obtained"/>
                             <field name="total_marks"/>
                             <field name="percentage"/>
                             <field name="grade"/>
-                            <field name="publish_date"/>
                         </group>
                       </group>
                   </sheet>
@@ -133,22 +110,6 @@
             </list>
         </field>
     </record>
-<!--Marks list-->
-    <record id="Exam_marks_list" model="ir.ui.view">
-        <field name="name">Exam Marks List</field>
-        <field name="model">exam.marks</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="student_id"/>
-                <field name="exam_id"/>
-                <field name="subject_id"/>
-                <field name="marks_obtained"/>
-                <field name="total_marks"/>
-                <field name="percentage"/>
-                <field name="grade_id"/>
-            </list>
-        </field>
-    </record>
 <!--Grade list-->
     <record id="Exam_grade_list" model="ir.ui.view">
         <field name="name">Exam Grade List</field>
@@ -169,11 +130,14 @@
         <field name="model">exam.result</field>
         <field name="arch" type="xml">
             <list>
-                <field name="student_id"/>
+                <field name="student_id" />
                 <field name="exam_id"/>
+                <field name="result_status"/>
+                <field name="result_line"/>
+                <field name="total_obtained"/>
+                <field name="total_marks"/>
                 <field name="percentage"/>
                 <field name="grade"/>
-                <field name="result_status"/>
             </list>
         </field>
     </record>
@@ -198,11 +162,6 @@
     <record id="action_schedule" model="ir.actions.act_window">
        <field name="name">schedule</field>
         <field name="res_model">exam.schedule</field>
-        <field name="view_mode">list,form</field>
-    </record>
-    <record id="action_Marks" model="ir.actions.act_window">
-       <field name="name">Marks</field>
-        <field name="res_model">exam.marks</field>
         <field name="view_mode">list,form</field>
     </record>
     <record id="action_grade" model="ir.actions.act_window">

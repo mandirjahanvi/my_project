@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_company_form_inherit_penalty" model="ir.ui.view">
+        <field name="name">res.company.form.penalty</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add new tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Configurations">
+                    <group>
+                        <field name="penalty_charge"/>
+                        <field name="book_validity"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

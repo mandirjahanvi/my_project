@@ -1,81 +1,60 @@
 <odoo>
-    <!---student-->
-    <menuitem id="menu_student_register_main"
-              name="Education Management" sequence="1"/>
 
-    <menuitem id="menu_student_register"  name="Students"
-              parent="menu_student_register_main"
-              action="action_student_register"
-              sequence="10"/>
-    <!--Teacher-->
-    <menuitem id="menu_teacher_tag" name="Teacher"
-              parent="menu_student_register_main"
-              action="action_teacher_tag"
-              sequence="20"/>
-    <!--Academics-->
-     <menuitem id="menu_academics_root"
-              name="Academics"
-               parent="menu_student_register_main"
-              sequence="30"/>
-
-    <menuitem id="menu_education_class"
-              name="Classes"
-              parent="menu_academics_root"
-              action="action_classes"
+    <!-- MAIN ROOT -->
+    <menuitem id="menu_main_root"
+              name="Education Management"
               sequence="1"/>
 
-    <menuitem id="menu_academic_year"
-              name="Academic Year"
-              parent="menu_academics_root"
-              action="action_academic_year"
+    <!-- ================= STUDENTS ================= -->
+    <menuitem id="menu_student"
+              name="Students"
+              parent="menu_main_root"
+              action="action_student_register"
+              sequence="10"/>
+
+    <!-- ================= TEACHER ================= -->
+    <menuitem id="menu_teacher"
+              name="Teacher"
+              parent="menu_main_root"
+              action="action_teacher_tag"
+              sequence="20"/>
+
+    <!-- ================= COURSE ================= -->
+
+    <menuitem id="menu_course"
+              name="Courses"
+              parent="menu_main_root"
+              action="action_course"
+              sequence="30"/>
+
+    <!-- ================= EXAMINATION ================= -->
+    <menuitem id="menu_examination"
+              name="Examination"
+              parent="menu_main_root"
+              sequence="40"/>
+
+    <menuitem id="menu_schedule"
+              name="Exam Schedule"
+              parent="menu_examination"
+              action="action_schedule"
+              sequence="1"/>
+
+    <menuitem id="menu_result"
+              name="Results"
+              parent="menu_examination"
+              action="action_result"
               sequence="2"/>
 
-    <menuitem id="menu_education_timetable"
-              name="Timetable"
-              parent="menu_academics_root"
-              action="action_education_timetable"
+    <menuitem id="menu_grade"
+              name="Exam Grade"
+              parent="menu_examination"
+              action="action_grade"
               sequence="3"/>
 
-    <menuitem id="menu_education_subject"
-              name="Subject"
-              parent="menu_academics_root"
-              action="action_education_subject"
+    <menuitem id="menu_report"
+              name="Reports"
+              parent="menu_examination"
+              action="action_report"
               sequence="4"/>
 
-<!--Examination-->
-         <menuitem id="menu_examination"
-                  name="Examination"
-                  parent="menu_student_register_main"
-                  sequence="40"/>
-
-        <menuitem id="menu_schedule"
-                  name="Exam Schedule"
-                  parent="menu_examination"
-                  action="action_schedule"
-                  sequence="1"/>
-
-        <menuitem id="menu_exam_marks"
-                  name="Exam Marks"
-                  parent="menu_examination"
-                  action="action_Marks"
-                  sequence="2"/>
-
-        <menuitem id="menu_grade"
-                  name="Exam Grade"
-                  parent="menu_examination"
-                  action="action_grade"
-                  sequence="3"/>
-
-        <menuitem id="menu_result"
-                  name="Results"
-                  parent="menu_examination"
-                  action="action_result"
-                  sequence="4"/>
-
-        <menuitem id="menu_report"
-                  name="Reports"
-                  parent="menu_examination"
-                  action="action_report"
-                  sequence="5"/>
 </odoo>
-

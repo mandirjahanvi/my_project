@@ -1,0 +1,20 @@
+<odoo>
+    <record id="group_Member" model="res.groups">
+        <field name="name">Librarian Member</field>
+    </record>
+     <record id="group_Librarian" model="res.groups">
+       <field name="name">Librarian</field>
+       <field name="implied_ids" eval="[(4, ref('group_Member'))]"/>
+    </record>
+     <record id="group_librarian_admin" model="res.groups">
+    <field name="name">Librarian Admin</field>
+    <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="rule_book_issue" model="ir.rule">
+        <field name="name">book_Issue</field>
+        <field name="model_id" ref="model_book_issue"/>
+        <field name="groups" eval="[(4, ref('Library_Management_system.group_Member'))]"/>
+       <field name="domain_force">[('member_id', '=', user.id)]</field>
+     </record>-->
+</odoo>

@@ -1,0 +1,78 @@
+<odoo>
+    <record id="book_issue_form" model="ir.ui.view">
+        <field name="name">book issue form</field>
+        <field name="model">book.issue</field>
+        <field name="arch" type="xml">
+            <form string="Book Issue">
+                <header>
+                    <button name="action_issue_book"
+                            string="Issue"
+                            class="btn-primary"
+                            type="object"
+                            invisible="status != 'draft'"/>
+                    <button name="action_return_book"
+                            string="Return"
+                            class="btn-secondary"
+                            type="object"
+                            invisible="status != 'issued'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,issued,returned"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="book_id" />
+                            <field name="member_id"/>
+                        </group>
+                        <group>
+                            <group cols="2">
+                                <field name="issue_date" readonly="1"/>
+                                <label for="return_date"/>
+                                <div class="o_row align-items-center">
+                                    <field name="return_date" readonly="1" nolabel="1"/>
+                                    <button name="action_update_return"
+                                        type="object"
+                                        class="oe_inline btn btn-secondary"
+                                        icon="fa-calendar"
+                                        groups="Library_Management_system.group_librarian_admin"
+                                        confirm="Are you sure you want to update the return date?"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="days_issued" readonly="1"/>
+                            <field name="penalty" readonly="1"/>
+                        </group>
+                        <group cols="2">
+                            <field name="last_date_of_return" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="book_issue_list" model="ir.ui.view">
+        <field name="name">book issue list</field>
+        <field name="model">book.issue</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_book_issue" model="ir.actions.act_window">
+        <field name="name">Book Issues</field>
+        <field name="res_model">book.issue</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_book_issue"
+              name="Book Issue"
+              action="action_book_issue" parent="library_management_main"
+              sequence="20"/>
+</odoo>

@@ -9,11 +9,10 @@
                     <group col="1">
                         <group>
                             <field name="acc_no" required="1"/>
-                            <field name="balance" />
+                            <field name="balance"/>
+                            <field name="balance_compute" />
                             <field name="customer_id" required="1"/>
-                            <field name="bank_name"/>
                             <field name="account_type" />
-                            <field name="ifsc_code"/>
                         </group>
                     </group>
                     <notebook name="not_1">
@@ -34,10 +33,9 @@
 			<list string="Bank Acc List">
 				<field name="acc_no"/>
 				<field name="balance"/>
+                <field name="balance_compute" />
 				<field name="customer_id"/>
-                <field name="bank_name"/>
 				<field name="account_type"/>
-                <field name="ifsc_code"/>
 			</list>
 		</field>
     </record>

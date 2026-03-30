@@ -23,4 +23,5 @@
         <field name="domain_force">[('project_member_ids','in',[user.id])]</field>
     </record>
 
+
 </odoo>
