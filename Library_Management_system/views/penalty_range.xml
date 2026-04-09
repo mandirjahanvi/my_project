@@ -1,0 +1,29 @@
+<odoo>
+    <record id="penalty_range_form" model="ir.ui.view">
+        <field name="name">penalty range form</field>
+        <field name="model">penalty.range</field>
+        <field name="arch" type="xml"/>
+        <form>
+            <sheet>
+                <group>
+                    <field name="from_day"/>
+                    <field name="to_day"/>
+                    <field name="penalty_range"/>
+                    <field name="company_id"/>
+                </group>
+            </sheet>
+        </form>
+    </record>
+    <record id="penalty_range_list" model="ir.ui.view">
+        <field name="name">penalty range list</field>
+        <field name="model">penalty.range</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="from_day"/>
+                <field name="to_day"/>
+                <field name="penalty_range"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+</odoo>

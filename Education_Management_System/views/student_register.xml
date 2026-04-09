@@ -13,8 +13,8 @@
                     </div>
                     <group>
                         <group>
-                            <field name="name"/>
                             <field name="admission_no"/>
+                            <field name="name"/>
                             <field name="dob"/>
                             <field name="gender" widget="radio"/>
                         </group>

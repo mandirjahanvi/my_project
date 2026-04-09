@@ -11,6 +11,13 @@
                     <group>
                         <field name="penalty_charge"/>
                         <field name="book_validity"/>
+                        <field name="penalty_range">
+                            <list editable="bottom">
+                                <field name="from_day"/>
+                                <field name="to_day"/>
+                                <field name="penalty_range"/>
+                            </list>
+                        </field>
                     </group>
                 </page>
             </xpath>

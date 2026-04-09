@@ -5,24 +5,23 @@ from datetime import timedelta
 
 class book_issue(models.Model):
     _name = 'book.issue'
-    _rec_name = 'book_id'
+    _description ='Book Issue'
 
-    book_id=fields.Many2one('library.book','Book')
+    book_id=fields.Many2one('library.book','Book Name')
     member_id=fields.Many2one('res.users','Member')
-    issue_date=fields.Date('Issue Date')
+    issue_date=fields.Date('Issue Date',default=fields.Date.today)
     return_date=fields.Date('Return Date')
     status=fields.Selection([('draft','Draft'),('issued','Issued'),('returned','Returned')],string='Status',default='draft')
     days_issued = fields.Integer("Days Issued",compute="_compute_book",store=True)
     last_date_of_return=fields.Date("Last Date")
-    penalty=fields.Integer("Penalty",compute="compute_penalty",store=True)
+    penalty=fields.Float("Penalty",compute="compute_penalty")
 
     @api.depends('issue_date', 'return_date')
     def _compute_book(self):
         for book in self:
             if book.issue_date:
                 end_date = book.return_date or fields.Date.today()
-                days = max((end_date - book.issue_date).days, 0)
-                book.days_issued = days
+                book.days_issued = max((end_date - book.issue_date).days, 0)
             else:
                 book.days_issued = 0
 
@@ -32,7 +31,6 @@ class book_issue(models.Model):
                 if book.book_id.available_qty <= 0:
                     raise UserError("No books available to issue!")
                 company=self.env.company
-                book.issue_date = fields.Date.today()
                 if company.book_validity:
                     book.last_date_of_return = book.issue_date + timedelta(days = company.book_validity)
                 book.status = 'issued'
@@ -40,15 +38,19 @@ class book_issue(models.Model):
             else:
                 raise UserError("Book is already issued or returned!")
 
+
     @api.depends('return_date', 'last_date_of_return')
     def compute_penalty(self):
+        company = self.env.company
         for book in self:
-            p = 0
-            company = self.env.company
-            if book.return_date and book.last_date_of_return:
-                if book.return_date > book.last_date_of_return:
-                    p = company.penalty_charge
-            book.penalty = p
+            book.penalty = 0
+            if book.return_date and book.last_date_of_return and book.return_date > book.last_date_of_return:
+                delay = book.return_date - book.last_date_of_return
+                delay_days = max(delay.days, 0)
+                penalty_amt = company.penalty_charge or 0
+                record = self.env['penalty.range'].search([('from_day', '<=', delay_days),('to_day', '>=', delay_days),('company_id', '=', self.env.company.id)],limit=1)
+                penalty_percentage = record.penalty_range if record else 0
+                book.penalty = penalty_amt + (penalty_amt * (penalty_percentage / 100))
 
     def action_update_return(self):
         return {
@@ -67,7 +69,10 @@ class book_issue(models.Model):
         for book in self:
             if book.status != 'issued':
                 raise UserError("Book must be issued before returning!")
-            book.write({'return_date':fields.Date.today(),'status':'returned'})
+            book.write({'return_date': fields.Date.today(),
+                        'status': 'returned'})
             book.book_id.available_qty += 1
+
+
 
 

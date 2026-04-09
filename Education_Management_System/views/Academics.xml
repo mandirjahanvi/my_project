@@ -12,38 +12,19 @@
                     </group>
                     <notebook>
                         <page string="Semesters">
-                            <div  style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 1"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 0}"/>
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 2"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 1}"/>
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 3"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 2}"/>
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 4"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 3}"/>
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 5"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 4}"/>
-                                <button name="action_open_semester"
-                                        type="object"
-                                        string="Semester 6"
-                                        class="btn btn-primary"
-                                        context="{'semester_index': 5}"/>
-                            </div>
+                            <field name="semester_id">
+                                <kanban>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_card oe_kanban_global_click"
+                                                 style="text-align: center; border-radius: 5px;">
+                                                <strong><field name="name"/></strong>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -129,7 +110,7 @@
         <field name="name">education.semester.list</field>
         <field name="model">education.semester</field>
         <field name="arch" type="xml">
-            <list default_order="sequence">
+            <list default_order="sequence asc">
                 <field name="name"/>
                 <field name="course_id"/>
             </list>

@@ -4,3 +4,4 @@ access_issue_librarian,issue.librarian,model_book_issue,group_Librarian,1,1,1,1
 access_book_member,book.member,model_library_book,group_Member,1,0,0,0
 access_issue_member,issue.member,model_book_issue,group_Member,1,0,0,0
 access_return_wizard,return.date.wizard,model_return_date_wizard,"",1,1,1,1
+access_penalty_range,penalty.range,model_penalty_range,,1,1,1,1

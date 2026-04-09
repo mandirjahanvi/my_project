@@ -40,10 +40,12 @@
                         </group>
                         <group>
                             <field name="days_issued" readonly="1"/>
-                            <field name="penalty" readonly="1"/>
+                            <field name="penalty" readonly="1" invisible="penalty == 0"/>
                         </group>
-                        <group cols="2">
-                            <field name="last_date_of_return" readonly="1"/>
+                        <group>
+                            <group>
+                                <field name="last_date_of_return" readonly="1"/>
+                            </group>
                         </group>
                     </group>
                 </sheet>
@@ -62,6 +64,7 @@
                 <field name="issue_date"/>
                 <field name="return_date"/>
                 <field name="status"/>
+                <field name="penalty"/>
             </list>
         </field>
     </record>
