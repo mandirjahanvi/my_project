@@ -8,8 +8,8 @@ class Exam(models.Model):
     class_id=fields.Many2one('education.course',string="Class")
     subject_id=fields.Many2one('education.subject',string="Subject")
     exam_date=fields.Date("Exam Date")
-    start_time=fields.Datetime("Start Time")
-    end_time=fields.Datetime("End Time")
+    start_time=fields.Float("Start Time")
+    end_time=fields.Float("End Time")
     room_number=fields.Char("Room Number")
     teacher_id=fields.Many2one('edu.teacher',string="Supervisor")
 
