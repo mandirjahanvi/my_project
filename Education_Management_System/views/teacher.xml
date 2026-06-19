@@ -78,8 +78,8 @@
                             </div>
                             <!---right side photo-->
                             <div class="col-4 text-end">
-                                <img t-att-src="kanban_image('edu.teacher', 'photo', record.id.value)"
-                                     class="rounded"
+                                <img t-att-src="'/web/image/edu.teacher/' + record.id.raw_value + '/photo'"
+                                     class="rounded img-fluid"
                                      style="max-height:100px;"/>
                             </div>
                         </div>

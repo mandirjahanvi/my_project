@@ -5,10 +5,11 @@
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
 
-            <!-- Add new tab -->
             <xpath expr="//notebook" position="inside">
                 <page string="Configurations">
                     <group>
+                        <field name="issue_picking_id"/>
+                        <field name="return_picking_id"/>
                         <field name="penalty_charge"/>
                         <field name="book_validity"/>
                         <field name="penalty_range">

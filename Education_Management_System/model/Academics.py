@@ -1,4 +1,6 @@
 from odoo import models, fields,api
+from odoo.exceptions import UserError
+
 
 class EducationCourse(models.Model):
     _name = "education.course"
@@ -11,23 +13,31 @@ class EducationCourse(models.Model):
     active = fields.Boolean("Active", default=True)
 
     def action_open_semester(self):
+        self.ensure_one()
         index = self.env.context.get('semester_index', 0)
         semesters = self.semester_id.sorted('sequence')
         if index >= len(semesters):
-            return
+            raise UserError("No more semesters available.")
         semester = semesters[index]
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'education.semester',
             'view_mode': 'form',
             'res_id': semester.id,
+            'target': 'current',
+            'context': dict(self.env.context),
         }
     @api.model
     def create(self, vals):
         sem = super().create(vals)
         total = sem.total_semester or 0
+        semester_vals=[]
         for i in range(1, total + 1):
-            self.env['education.semester'].create([{'name': f"Semester {i}",'sequence': i, 'course_id': sem.id,}])
+            semester_vals.append({
+                'name': f"Semester {i}",
+                'sequence': i,
+                'course_id': sem.id,
+            })
         return sem
 
     def write(self, vals):
@@ -36,11 +46,14 @@ class EducationCourse(models.Model):
             for rec in self:
                 existing = len(rec.semester_id)
                 total = rec.total_semester
-                if total > existing:
-                    for i in range(existing + 1, total + 1):
-                        self.env['education.semester'].create([{'name': f"Semester {i}",'sequence': i,'course_id': rec.id,}])
-
-        return res
+                if len(Semester) < total:
+                    for i in range(len(Semester) + 1, total + 1):
+                        self.env['education.semester'].create({
+                            'name': f"Semester {i}",
+                            'sequence': i,
+                            'course_id': rec.id,
+                        })
+                return res
 
 class Academic_year(models.Model):
     _name='edu.year'
@@ -51,7 +64,7 @@ class Academic_year(models.Model):
 class Semester(models.Model):
     _name="education.semester"
     _rec_name = 'name'
-    _order = "sequence"
+    _order = "sequence,id"
 
     name = fields.Char("Semester")
     sequence = fields.Integer("Sequence")
@@ -61,18 +74,18 @@ class Semester(models.Model):
     syllabus_filename = fields.Char("File Name")
 
     @api.model
-    def create(self,vals):
-        record =super().create(vals)
-        total=record.total_semester
+    def create(self, vals):
+        course =super().create(vals)
+        total = course.total_semester or 0
         semester =[]
         for i in range(1, total + 1):
-            semester.append((0, 0, {
+            semester.append( {
                 'name': f"Semester {i}",
                 'sequence': i,
-                'course_id': record.id
-            }))
-        record.semester_id = semester
-        return record
+                'course_id': course.id
+            })
+        course.semester_id = semester
+        return course
 
 class Subject(models.Model):
     _name = "education.subject"

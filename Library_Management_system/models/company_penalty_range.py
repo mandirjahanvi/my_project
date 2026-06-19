@@ -17,7 +17,7 @@ class PenaltyRange(models.Model):
             if rec.from_day >= rec.to_day:
                 raise UserError("from day not greater or equal to to Days")
             records=self.search([('id', '!=',rec.id), ('company_id', '=', rec.company_id.id)])
-            lapping=records.filtered(lambda r:rec.from_day <= r.to_days and rec.to_days >= r.from_day)
+            lapping = records.filtered(lambda r: not (rec.to_day < r.from_day or rec.from_day > r.to_day))
             if lapping:
             # for r in records:
             #     if rec.from_day <= r.to_day and rec.to_day >= r.from_day:

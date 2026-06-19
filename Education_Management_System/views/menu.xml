@@ -3,7 +3,7 @@
     <!-- MAIN ROOT -->
     <menuitem id="menu_main_root"
               name="Education Management"
-              sequence="1"/>
+              sequence="2"/>
 
     <!-- ================= STUDENTS ================= -->
     <menuitem id="menu_student"

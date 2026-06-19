@@ -1,15 +1,32 @@
 <odoo>
+    <data>
     <record id="library_book_form" model="ir.ui.view">
         <field name="name">library book form</field>
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form string="Book">
                 <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_issues"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-book">
+                    <field name="issue_book_count" widget="statinfo" string=" Issues "/>
+                    </button>
+                </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <div class="oe_right">
+                        <field name="photo" widget="image"
+                               class="oe_avatar"
+                               options="{'size': [150, 150]}"/>
+                    </div>
                     <group>
-                        <field name="name"/>
                         <field name="author"/>
                         <field name="available_qty"/>
                         <field name="is_available"/>
+                        <field name="code"/>
                     </group>
                 </sheet>
             </form>
@@ -24,17 +41,60 @@
                 <field name="author"/>
                 <field name="available_qty"/>
                 <field name="is_available"/>
+                <field name="code"/>
             </list>
         </field>
     </record>
-    <record id="action_library_book" model="ir.actions.act_window">
-        <field name="name">Books</field>
-        <field name="res_model">library.book</field>
-        <field name="view_mode">list,form</field>
+
+    <record id="view_book_kanban" model="ir.ui.view">
+        <field name="name">view book kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="available_qty"/>
+                <field name="photo"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div><field name="code"/></div>
+                                    <div><strong><field name="name"/></strong></div>
+                                    <div><field name="author"/></div>
+                                    <div t-attf-class="#{record.available_qty.raw_value == 0? 'text-danger' : 'text-success'}">
+                                         Available: <field name="available_qty"/></div>
+                                </div>
+                                <div class="col-4 text-end">
+                                <img t-att-src="'/web/image/library.book/' + record.id.raw_value + '/photo'"
+                                     class="rounded img-fluid"
+                                     style="max-height:100px;"/>
+                            </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
 
-    <menuitem id="library_management_main" name="Library Management"/>
-    <menuitem id="menu_book" name="Books"
-              action="action_library_book" sequence="10"
-              parent="library_management_main"/>
+        <record id="view_book_search" model="ir.ui.view">
+            <field name="name">library book search</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Book Name"
+                           filter_domain="['|','|', ('name', 'ilike', self),('code', 'ilike', self),('author', 'ilike', self)]"/>
+                    <field name="code" string="Code"/>
+
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_name" string="Book Name" context="{'group_by': 'name'}"/>
+                        <filter name="group_by_code" string="Code" context="{'group_by': 'code'}"/>
+                        <filter name="group_by_author" string="Author" context="{'group_by': 'author'}"/>
+                    </group>
+                </search>
+            </field>
+         </record>
+    </data>
 </odoo>
