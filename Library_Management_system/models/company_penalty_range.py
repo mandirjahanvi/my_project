@@ -19,8 +19,6 @@ class PenaltyRange(models.Model):
             records=self.search([('id', '!=',rec.id), ('company_id', '=', rec.company_id.id)])
             lapping = records.filtered(lambda r: not (rec.to_day < r.from_day or rec.from_day > r.to_day))
             if lapping:
-            # for r in records:
-            #     if rec.from_day <= r.to_day and rec.to_day >= r.from_day:
                     raise UserError("Range Overlapping... You can not do such things")
 
     # def create(self,vals):

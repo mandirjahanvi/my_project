@@ -8,6 +8,6 @@
         <field name="report_file">library_management_system.member_history_report</field>
         <field name="binding_model_id" ref="model_library_member"/>
         <field name="binding_type">report</field>
-        <field name="print_report_name">f'Book Issue Receipt - {object.user_id.name}'</field>
+        <field name="print_report_name">'Member History - %s' % (object.user_id.name)</field>
     </record>
 </odoo>

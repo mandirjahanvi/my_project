@@ -1,5 +1,7 @@
+import qrcode
+import base64
+from io import BytesIO
 from dateutil.relativedelta import relativedelta
-
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -29,6 +31,7 @@ class LibraryMember(models.Model):
     active = fields.Boolean(string = 'Active',default = True)
     notes = fields.Text(string='Notes')
     issue_ids = fields.One2many('book.issue','member_id',string='Book Issues')
+    penalty_qr = fields.Binary(compute="_compute_penalty_qr")
 
     @api.constrains('aadhar_number')
     def _check_duplicate_aadhar(self):
@@ -68,4 +71,19 @@ class LibraryMember(models.Model):
                 rec.expiry_date = rec.join_date + relativedelta(years=1)
             else:
                 rec.expiry_date = False
+
+    @api.depends('penalty_due')
+    def _compute_penalty_qr(self):
+        for rec in self:
+            if rec.penalty_due <= 0:
+                rec.penalty_qr = False
+                continue
+            qr = qrcode.make(
+                f"Penalty Amount : ₹{rec.penalty_due}"
+            )
+            buffer = BytesIO()
+            qr.save(buffer, format='PNG')
+            rec.penalty_qr = base64.b64encode(
+                buffer.getvalue()
+            )
 
