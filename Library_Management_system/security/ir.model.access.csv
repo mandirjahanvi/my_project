@@ -1,7 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_book_librarian,book.librarian,Library_Management_system.model_library_book,group_Librarian,1,1,1,1
-access_issue_librarian,issue.librarian,model_book_issue,group_Librarian,1,1,1,1
-access_book_member,book.member,model_library_book,group_Member,1,0,0,0
-access_issue_member,issue.member,model_book_issue,group_Member,1,0,0,0
-access_return_wizard,return.date.wizard,model_return_date_wizard,"",1,1,1,1
+access_book_librarian,book.librarian,model_library_book,Library_Management_system.group_Librarian,1,1,1,1
+access_book_member,book.member,model_library_book,Library_Management_system.group_Member,1,0,0,0
+access_issue_librarian,issue.librarian,model_book_issue,Library_Management_system.group_Librarian,1,1,1,1
+access_issue_member,issue.member,model_book_issue,Library_Management_system.group_Member,1,0,0,0
+access_book_issue_line_user,book.issue.line.user,model_book_issue_line,Library_Management_system.group_Member,1,1,1,0
+access_return_wizard,return.date.wizard,model_return_date_wizard,,1,1,1,1
 access_penalty_range,penalty.range,model_penalty_range,,1,1,1,1
+access_member,access.member,model_library_member,Library_Management_system.group_Member,1,1,1,0
+access_member_librarian,access.member.librarian,model_library_member,Library_Management_system.group_Librarian,1,1,1,1
+access_library_penalty_payment,library.penalty.payment,model_library_penalty_payment,,1,1,1,1

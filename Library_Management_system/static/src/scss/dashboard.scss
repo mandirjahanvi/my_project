@@ -1,0 +1,119 @@
+.library_dashboard {
+    padding: 30px;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.dashboard_header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* CARDS */
+
+.dashboard_cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.card_box {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card_box:hover {
+    transform: translateY(-5px);
+}
+
+.card_box h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card_box span {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.purple {
+    border-left: 6px solid #6f42c1;
+}
+
+.blue {
+    border-left: 6px solid #0d6efd;
+}
+
+.green {
+    border-left: 6px solid #198754;
+}
+
+.red {
+    border-left: 6px solid #dc3545;
+}
+
+/* TABLES */
+
+.table_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.table_box {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+}
+
+.table_title {
+    margin-bottom: 20px;
+}
+
+.table_title h3 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.table {
+    width: 100%;
+}
+
+.table th {
+    background: #f3f4f7;
+    padding: 14px;
+}
+
+.table td {
+    padding: 14px;
+}
+
+/* STATUS */
+
+.status {
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.issued {
+    background: #d1e7dd;
+    color: #198754;
+}
+
+.returned {
+    background: #cff4fc;
+    color: #055160;
+}
+
+.overdue {
+    background: #f8d7da;
+    color: #dc3545;
+}

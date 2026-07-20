@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+<t t-name="library_dashboard_template">
+
+<div class="library_dashboard">
+
+    <!-- Header -->
+
+    <div class="dashboard_header">
+        <h1>Library Dashboard</h1>
+    </div>
+
+    <!-- Cards -->
+
+    <div class="dashboard_cards">
+
+        <!-- Total Books -->
+
+        <div class="card_box purple">
+
+            <div class="card_content">
+
+                <h3>Total Books</h3>
+
+                <span>
+                    <t t-esc="state.total_books"/>
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Members -->
+
+        <div class="card_box blue">
+
+            <div class="card_content">
+
+                <h3>Total Members</h3>
+
+                <span>
+                    <t t-esc="state.total_members"/>
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Issued Books -->
+
+        <div class="card_box green">
+
+            <div class="card_content">
+
+                <h3>Issued Books</h3>
+
+                <span>
+                    <t t-esc="state.issued_books"/>
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Overdue Books -->
+
+        <div class="card_box red">
+
+            <div class="card_content">
+
+                <h3>Overdue Books</h3>
+
+                <span>
+                    <t t-esc="state.overdue_books"/>
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Tables Section -->
+
+    <div class="table_wrapper">
+
+        <!-- Recent Issues -->
+
+        <div class="table_box">
+
+            <div class="table_title">
+                <h3>Recent Book Issues</h3>
+            </div>
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Member</th>
+
+                        <th>Book</th>
+
+                        <th>Issue Date</th>
+
+                        <th>Due Date</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <t t-if="state.recent_issues.length">
+
+                        <t t-foreach="state.recent_issues"
+                           t-as="issue"
+                           t-key="issue.book">
+
+                            <tr>
+
+                                <!-- Member -->
+
+                                <td>
+                                    <t t-esc="issue.member"/>
+                                </td>
+
+                                <!-- Book -->
+
+                                <td>
+                                    <t t-esc="issue.book"/>
+                                </td>
+
+                                <!-- Issue Date -->
+
+                                <td>
+                                    <t t-esc="issue.issue_date"/>
+                                </td>
+
+                                <!-- Due Date -->
+
+                                <td>
+                                    <t t-esc="issue.due_date"/>
+                                </td>
+
+                                <!-- Status -->
+
+                                <td>
+
+                                    <span
+                                        t-att-class="
+                                        issue.status == 'issued'
+                                        ? 'status issued'
+                                        : issue.status == 'returned'
+                                        ? 'status returned'
+                                        : 'status overdue'
+                                    ">
+
+                                        <t t-esc="issue.status"/>
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        </t>
+
+                    </t>
+
+                    <!-- No Data -->
+
+                    <t t-else="">
+
+                        <tr>
+
+                            <td colspan="5" class="text-center">
+                                No Records Found
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+        <div class="table_box">
+            <div class="table_title">
+                <h3>Overdue Books</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Book</th>
+                        <th>Due Date</th>
+                        <th>Days Overdue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-if="state.overdue_data.length">
+                        <t t-foreach="state.overdue_data"
+                           t-as="over"
+                           t-key="over.book">
+                            <tr>
+                                <td>
+                                    <t t-esc="over.member"/>
+                                </td>
+                                <td>
+                                    <t t-esc="over.book"/>
+                                </td>
+                                <td>
+                                    <t t-esc="over.due_date"/>
+                                </td>
+                                <td class="text-danger fw-bold">
+                                    <t t-esc="over.days_overdue"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                No Overdue Books
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</t>
+</templates>

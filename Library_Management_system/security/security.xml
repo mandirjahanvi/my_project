@@ -1,20 +1,38 @@
 <odoo>
+    <!---member group-->
     <record id="group_Member" model="res.groups">
-        <field name="name">Librarian Member</field>
+        <field name="name">Member</field>
     </record>
+    <!---Librarian Group-->
      <record id="group_Librarian" model="res.groups">
-       <field name="name">Librarian</field>
-       <field name="implied_ids" eval="[(4, ref('group_Member'))]"/>
+       <field name="name">Librarian(all users)</field>
     </record>
+      <!-- Librarian Admin Group -->
      <record id="group_librarian_admin" model="res.groups">
-    <field name="name">Librarian Admin</field>
-    <field name="category_id" ref="base.module_category_hidden"/>
+         <field name="name">Librarian Admin</field>
+    </record>
+    <!-- Member Rule -->
+    <record id="rule_book_issue_member" model="ir.rule">
+        <field name="name">Book Issue Member Rule</field>
+        <field name="model_id" ref="model_book_issue"/>
+        <field name="groups" eval="[(4, ref('library_management_system.group_Member'))]"/>
+        <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
     </record>
 
-    <record id="rule_book_issue" model="ir.rule">
-        <field name="name">book_Issue</field>
+    <!-- Librarian Rule -->
+    <record id="rule_book_issue_librarian" model="ir.rule">
+        <field name="name">Book Issue Librarian Rule</field>
         <field name="model_id" ref="model_book_issue"/>
-        <field name="groups" eval="[(4, ref('Library_Management_system.group_Member'))]"/>
-       <field name="domain_force">[('member_id', '=', user.id)]</field>
-     </record>-->
+        <field name="groups" eval="[(4, ref('library_management_system.group_Librarian'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <!-- Librarian Admin Rule -->
+    <record id="rule_book_issue_librarian_admin" model="ir.rule">
+        <field name="name">Book Issue Librarian Admin Rule</field>
+        <field name="model_id" ref="model_book_issue"/>
+        <field name="groups" eval="[(4, ref('library_management_system.group_librarian_admin'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
 </odoo>

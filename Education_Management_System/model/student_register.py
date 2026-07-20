@@ -1,11 +1,11 @@
-from odoo import models, fields
+from odoo import models, fields,api
 
 class student_register(models.Model):
     _name = 'student.register'
     _rec_name = 'name'
 
     name=fields.Char("Name")
-    admission_no=fields.Char("Admission Number")
+    admission_no=fields.Char("Admission Number",required=True,readonly=True,copy=False,default='New')
     phone = fields.Char('Phone')
     email = fields.Char('Email')
     dob= fields.Date('Date of Birth')
@@ -18,6 +18,14 @@ class student_register(models.Model):
     city=fields.Char()
     country_id = fields.Many2one('res.country',required=True)
     state_id = fields.Many2one('res.country.state',domain="[('country_id', '=', country_id)]")
+
+    @api.model
+    def create(self, vals):
+        if vals.get('admission_no', 'New') == 'New':
+            vals['admission_no'] = self.env['ir.sequence'].next_by_code(
+                'student.admission.sequence'
+            ) or 'New'
+        return super(student_register, self).create(vals)
 
 class student_document(models.Model):
     _name = 'student.document'

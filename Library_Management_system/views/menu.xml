@@ -1,0 +1,22 @@
+<odoo>
+    <menuitem id="library_management_main" name="Library Management"/>
+
+    <menuitem id="menu_library_dashboard" name="Dashboard"
+               parent="library_management_main" action="library_dashboard_action"
+               sequence="1"/>
+
+    <menuitem id="menu_library_member" name="Members"
+              parent="library_management_main"
+              action="action_library_member"
+              sequence="2"/>
+
+    <menuitem id="menu_library_products" name="Book"
+              parent="library_management_main" action="action_library_product"
+              sequence="3"/>
+
+    <menuitem id="menu_book_issue" name="Book Issue"
+              action="action_book_issue" parent="library_management_main"
+              sequence="4"/>
+
+
+</odoo>

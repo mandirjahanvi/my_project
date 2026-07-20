@@ -80,7 +80,7 @@ class Report(models.Model):
     student_id = fields.Many2one('student.register', string='Student')
     exam_id = fields.Many2one('exam.schedule', string='Exam')
     class_id=fields.Many2one('education.class',string="Class")
-    subject_id=fields.Many2one('education.subject',string="Subjects")
+    subject_id = fields.One2many('education.subject', 'semester_id', string="Subjects")
     total_marks=fields.Float("Total Marks")
     percentage = fields.Float("Percentage")
     grade = fields.Char("Grade")

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="member_history_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">
+                            Member History Report
+                        </h2>
+                        <br/>
+                        <!-- Member Details -->
+                        <table class="table table-sm table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th width="30%">Member Code</th>
+                                    <td>
+                                        <span t-field="doc.member_code"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Member Name</th>
+                                    <td>
+                                        <span t-field="doc.user_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Aadhar Number</th>
+                                    <td>
+                                        <span t-field="doc.aadhar_number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>
+                                        <span t-field="doc.email"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile</th>
+                                    <td>
+                                        <span t-field="doc.mobile"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Membership Type</th>
+                                    <td>
+                                        <span t-field="doc.membership_type"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Join Date</th>
+                                    <td>
+                                        <span t-field="doc.join_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Expiry Date</th>
+                                    <td>
+                                        <span t-field="doc.expiry_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Penalty Due</th>
+                                    <td>
+                                        ₹ <span t-field="doc.penalty_due"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <!-- Book Issue History -->
+                        <h4>Book Issue History</h4>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Book</th>
+                                    <th>Issue Date</th>
+                                    <th>Due Date</th>
+                                    <th>Return Date</th>
+                                    <th>Penalty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.issue_ids" t-as="issue">
+                                    <tr t-foreach="issue.book_line_ids" t-as="line">
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.book_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.issue_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.last_date_of_return"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.return_date"/>
+                                        </td>
+                                        <td>
+                                            ₹ <span t-field="line.penalty"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <!-- Signature Section -->
+                        <div style="margin-top:70px;">
+                            <table style="width:100%; border:none;">
+                                <tr>
+                                    <!-- Member Signature -->
+                                    <td width="40%" style="text-align:center; border:none;vertical-align:bottom;">
+                                        <div style="height:70px;"></div>
+                                        <div style=" border-top:1px solid #000;width:220px;margin:0 auto;"></div>
+                                        <div style="margin-top:8px;">
+                                            <strong>Member Signature</strong>
+                                        </div>
+                                        <div style="margin-top:3px;"><span t-field="doc.user_id"/></div>
+                                    </td>
+                                    <!-- QR Code -->
+                                    <td width="20%" style="text-align:center; border:none;">
+                                        <img t-if="doc.penalty_qr"
+                                             t-att-src="image_data_uri(doc.penalty_qr)"
+                                             style="width:90px;height:90px;"/>
+                                        <div style="font-size:11px;">Payment QR</div>
+                                    </td>
+                                    <!-- Librarian Signature -->
+                                    <td width="40%" style="text-align:center; border:none; vertical-align:bottom;">
+                                        <div style="height:70px;"></div>
+                                        <div style="border-top:1px solid #000;width:220px;margin:0 auto;"></div>
+                                        <div style="margin-top:8px;">
+                                            <strong>Librarian Signature</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
