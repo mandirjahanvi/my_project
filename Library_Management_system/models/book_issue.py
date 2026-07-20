@@ -5,7 +5,7 @@ from datetime import timedelta
 
 class book_issue(models.Model):
     _name = 'book.issue'
-    _rec_name = 'member_id'
+    _rec_name = 'name'
 
     name=fields.Char('Reference',required=True,copy=False,readonly=True,default='New')
     book_line_ids = fields.One2many('book.issue.line','issue_id',string='Books')
@@ -13,9 +13,12 @@ class book_issue(models.Model):
     status=fields.Selection([('draft','Draft'),('issued','Issued'),('pending','Pending'),('returned','Returned')],default='draft',string='Status',tracking=True)
     penalty=fields.Float("Penalty",compute="compute_penalty", store=True)
     picking_id = fields.Many2one('stock.picking')
-    invoice_id = fields.Many2one('account.move', string="Penalty Invoice")
+    # invoice_id = fields.Many2one('account.move', string="Penalty Invoice")
     selected_book_ids = fields.Many2many('product.product',compute='compute_selected_books')
     member_photo = fields.Image(related='member_id.photo',string='Member Photo',store=True)
+    payment_ids=fields.One2many('library.penalty.payment','issue_id',string="Payments")
+    payment_count=fields.Integer(compute='_compute_payment_count')
+    payment_state = fields.Selection([('unpaid', 'Unpaid'),('paid', 'Paid')],compute='_compute_payment_state',store=True)
 
     def action_open_issue_form(self):
         self.ensure_one()
@@ -41,41 +44,58 @@ class book_issue(models.Model):
         for rec in self:
             rec.selected_book_ids = rec.book_line_ids.mapped('book_id')
 
+    @api.depends('payment_ids.state', 'payment_ids.amount', 'penalty')
+    def _compute_payment_state(self):
+        for rec in self:
+            if rec.penalty <= 0:
+                rec.payment_state = 'unpaid'
+                continue
+            paid_amount = sum(rec.payment_ids.filtered(lambda p: p.state == 'paid').mapped('amount'))
+            rec.payment_state = ('paid' if paid_amount >= rec.penalty else 'unpaid')
+
+    @api.depends('payment_ids')
+    def _compute_payment_count(self):
+        for rec in self:
+            rec.payment_count = len(rec.payment_ids)
+
     def action_pay_penalty(self):
         self.ensure_one()
-        if self.penalty <= 0:
-            raise UserError("No penalty amount to pay.")
-        if self.invoice_id:
+        paid_amount = sum(
+            self.payment_ids.filtered(
+                lambda p: p.state == 'paid'
+            ).mapped('amount')
+        )
+        remaining = self.penalty - paid_amount
+        if remaining <= 0:
+            payment = self.payment_ids.filtered(lambda p: p.state == 'paid')[:1]
             return {
                 'type': 'ir.actions.act_window',
-                'res_model': 'account.move',
-                'res_id': self.invoice_id.id,
+                'name': 'Payment',
+                'res_model': 'library.penalty.payment',
+                'res_id': payment.id,
                 'view_mode': 'form',
-                'target': 'current',
+                'target': 'new',
             }
-        income_account = self.env['account.account'].search([
-            ('account_type', '=', 'income'),
-            ('company_ids', 'in', self.env.company.id)
-        ], limit=1)
-        if not income_account:
-            raise UserError("Please configure an income account.")
-        invoice = self.env['account.move'].create({
-            'move_type': 'out_invoice',
-            'partner_id': self.member_id.partner_id.id,
-            'invoice_origin': self.name,
-            'invoice_line_ids': [(0, 0, {
-                'name': f'Library Penalty - {self.name}',
-                'quantity': 1,
-                'price_unit': self.penalty,
-                'account_id': income_account.id,
-            })]})
-        self.invoice_id = invoice.id
         return {
             'type': 'ir.actions.act_window',
-            'res_model': 'account.move',
-            'res_id': invoice.id,
+            'name': 'Pay Penalty',
+            'res_model': 'library.penalty.payment',
             'view_mode': 'form',
-            'target': 'current',
+            'target': 'new',
+            'context': {
+                'default_issue_id': self.id,
+                'default_amount': remaining,
+            }
+        }
+
+    def action_view_payments(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Payments',
+            'res_model': 'library.penalty.payment',
+            'view_mode': 'list,form',
+            'domain': [('issue_id', '=', self.id)],
         }
 
     @api.depends('book_line_ids.penalty')

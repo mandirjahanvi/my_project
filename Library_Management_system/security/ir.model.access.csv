@@ -8,3 +8,4 @@ access_return_wizard,return.date.wizard,model_return_date_wizard,,1,1,1,1
 access_penalty_range,penalty.range,model_penalty_range,,1,1,1,1
 access_member,access.member,model_library_member,Library_Management_system.group_Member,1,1,1,0
 access_member_librarian,access.member.librarian,model_library_member,Library_Management_system.group_Librarian,1,1,1,1
+access_library_penalty_payment,library.penalty.payment,model_library_penalty_payment,,1,1,1,1

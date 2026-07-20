@@ -1,0 +1,8 @@
+<odoo>
+    <record id="seq_library_penalty_payment" model="ir.sequence">
+        <field name="name">Penalty Payment</field>
+        <field name="code">library.penalty.payment</field>
+        <field name="prefix">PAY/</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>

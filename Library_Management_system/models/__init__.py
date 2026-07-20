@@ -5,3 +5,4 @@ from . import company_penalty
 from . import company_penalty_range
 from . import product_template
 from . import library_dashboard
+from .import library_penalty_payment
